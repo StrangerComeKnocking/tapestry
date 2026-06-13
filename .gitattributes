@@ -1,0 +1,24 @@
+# Store LF in the repo and check out LF on every platform (ends the Windows CRLF churn).
+* text=auto eol=lf
+
+# Scripts that must keep specific endings
+*.sh    text eol=lf
+*.ps1   text eol=lf
+*.bat   text eol=crlf
+*.cmd   text eol=crlf
+
+# Binary assets — never normalize or diff as text
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.webp  binary
+*.ico   binary
+*.pdf   binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.otf   binary
+
+# Generated output — collapse in diffs, exclude from language stats
+docs/_generated/** linguist-generated=true
