@@ -1,0 +1,21 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Dependencies / build artifacts
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+dist/
+
+# Local / personal (per AGENTS.md)
+CLAUDE.local.md
+.env
+.env.*
+
+# Scratch — pre-system artifacts, not canonical
+scratch/
