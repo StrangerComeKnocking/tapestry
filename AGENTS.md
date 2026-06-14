@@ -23,7 +23,7 @@
    | **Agents** | **Markdown** | `/AGENTS.md`, `/CLAUDE.md`, `/llms.txt`, the guidelines in **`/.agents/`**, the knowledge base in **`/docs/`** | **Canonical** |
    | **Humans** | **HTML** (hand-crafted, accessible) | everything in **`/web/`** | **Presentation** |
 
-4. **On conflict, `/docs` (Markdown) wins.** If `/web` HTML disagrees with `/docs`, the HTML is wrong — fix it. Canonical facts (config keys, API shapes, schemas) are stated **once** in `/docs/reference/` and never re-asserted elsewhere; other docs link to them.
+4. **On conflict, `/docs` (Markdown) wins.** If `/web` HTML disagrees with `/docs`, the HTML is wrong — fix it. Canonical facts (config keys, API shapes, schemas) are stated **once** in `/docs/use/reference/` and never re-asserted elsewhere; other docs link to them.
 5. **Determinism over vibes.** State exact versions, exact commands, explicit pre/postconditions. No "should just work."
 
 ---
@@ -42,15 +42,13 @@ tapestry/
 │   ├─ style-guide.md        # documentation style (both formats)
 │   └─ html-authoring-guide.md   # the /web HTML standard
 │
-├─ docs/                     # AGENT-FACING KNOWLEDGE BASE · Markdown · canonical
-│   ├─ tutorials/            # Diátaxis: learning-oriented
-│   ├─ how-to/               # Diátaxis: task-oriented
-│   ├─ reference/            # Diátaxis: information-oriented (the single source of facts)
-│   ├─ explanation/          # Diátaxis: understanding-oriented (concepts, architecture)
-│   │   └─ diagrams/         # diagrams-as-code (Mermaid / D2) — the diagram SOURCE
-│   ├─ decisions/            # ADRs (MADR) — NNNN-kebab-title.md
-│   ├─ rfd/                  # Requests for Discussion (bigger proposals)
-│   └─ research/             # cited research notes (link-rot–hardened)
+├─ docs/                     # AGENT-FACING KNOWLEDGE BASE · Markdown · canonical (see RFD-0001 + docs/_meta/)
+│   ├─ use/                  # use & self-host — Diátaxis + operate/, troubleshoot/, releases/
+│   ├─ build/                # contribute to core — architecture/, contracts/, testing/
+│   ├─ decide/               # immutable pipeline: research/ → rfd/ → decisions/ · specs/
+│   ├─ direction/            # durable intent — vision, strategy, positioning, principles, roadmap
+│   ├─ _generated/           # build output — do-not-edit
+│   └─ _meta/                # document contract, kinds, governance, templates
 │
 └─ web/                      # HUMAN-FACING · hand-authored HTML + CSS
     ├─ index.html
@@ -60,9 +58,9 @@ tapestry/
 
 **`.agents/` = how to work** (guidelines/instructions). **`docs/` = what is true** (the knowledge base). Keep the two separate.
 
-**Taxonomy:** both layers follow [Diátaxis](https://diataxis.fr/) — *Tutorials, How-to, Reference, Explanation*. One mode per document.
+**Taxonomy:** the user docs in `docs/use/` follow [Diátaxis](https://diataxis.fr/) — *Tutorials, How-to, Reference, Explanation*, one mode per document. `decide/` is a lifecycle pipeline, not Diátaxis.
 
-**Diagrams:** authored as **code** (Mermaid by default; D2 for high-fidelity art) under `docs/explanation/diagrams/`. Rendered SVG/PNG belongs in `web/assets/` as *output*, never as the source of truth.
+**Diagrams:** authored as **code** (Mermaid by default; D2 for high-fidelity art), beside the doc they illustrate (e.g. `docs/use/concepts/diagrams/`). Rendered SVG goes to `docs/_generated/` and `web/assets/` as *output*, never the source of truth.
 
 ---
 
@@ -93,15 +91,15 @@ Tapestry is **coding-agent agnostic**: one source of truth, and every tool resol
 - **Before acting:** read this file, then `/llms.txt` (when present), then the nearest subtree `AGENTS.md`.
 - **Editing docs:** edit Markdown in `/docs`. Only touch `/web` HTML for explicit human-docs tasks, following [.agents/html-authoring-guide.md](.agents/html-authoring-guide.md). Never change meaning in `/web` without updating the canonical `/docs` source.
 - **Writing code:** follow [.agents/development.md](.agents/development.md) — the loop (explore → plan → implement → verify → commit), verify-before-done, tests-as-spec, small self-contained changes, and the red lines.
-- **Decisions:** record them. A small, mostly-irreversible choice → an **ADR** in `docs/decisions/`. A substantial or externally-visible design → an **RFD** (§5). If an ADR starts needing a *Motivation* and *Alternatives* section, promote it to an RFD.
+- **Decisions:** record them. A small, mostly-irreversible choice → an **ADR** in `docs/decide/decisions/`. A substantial or externally-visible design → an **RFD** (§5). If an ADR starts needing a *Motivation* and *Alternatives* section, promote it to an RFD.
 - **Never** delete a superseded ADR/RFD — mark it superseded and back-link.
 
 ---
 
 ## 5. Decisions & proposals (pointers)
 
-- **ADRs** — [MADR](https://adr.github.io/madr/) format, `docs/decisions/NNNN-*.md`, lifecycle `proposed → accepted → superseded`, linked to the implementing PR.
-- **RFDs** — Oxide-style `docs/rfd/NNNN/`, lifecycle `prediscussion → discussion → published → committed` (or `abandoned`); user-facing features additionally carry KEP-style `alpha → beta → stable` stage gates.
+- **ADRs** — [MADR](https://adr.github.io/madr/) format, `docs/decide/decisions/NNNN-*.md`, lifecycle `proposed → accepted → superseded`, linked to the implementing PR.
+- **RFDs** — Oxide-style `docs/decide/rfd/NNNN/`, lifecycle `prediscussion → discussion → published → committed` (or `abandoned`); user-facing features additionally carry KEP-style `alpha → beta → stable` stage gates.
 
 ---
 
