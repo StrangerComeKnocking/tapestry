@@ -29,4 +29,5 @@ discovery, so it can't move into this directory. Root `AGENTS.md` stays thin; th
 
 - [style-guide.md](style-guide.md) — documentation style (Markdown + HTML).
 - [html-authoring-guide.md](html-authoring-guide.md) — the `/web` HTML standard.
-- _(to come: code-style, testing, security, release — added when those areas open.)_
+- [development.md](development.md) — the engineering workflow: the loop, verify-before-done, tests-as-spec, small changes, and the red lines.
+- _(to come: language-specific code-style, security, release — added when those areas open.)_

@@ -81,7 +81,7 @@ The full rules live in **[.agents/style-guide.md](.agents/style-guide.md)** and,
 Tapestry is **coding-agent agnostic**: one source of truth, and every tool resolves to it. Do not fork instructions per tool.
 
 - **`AGENTS.md` (this file, repo root) is canonical.** It follows the open [agents.md](https://agents.md) standard and is read natively by Codex, GitHub Copilot, Cursor, Gemini CLI, Aider, Amp, Jules, Junie, Zed, and others. The standard requires it at the **root** for discovery, so it stays here — thin — and links to the detail.
-- **Detailed guidelines live in [`.agents/`](.agents/)** — modular, one concern per file (style, HTML authoring, and later code-style, testing, security). Edit guidance there or here; never inside a tool-specific file.
+- **Detailed guidelines live in [`.agents/`](.agents/)** — modular, one concern per file (style, HTML authoring, development, and later language-specific code-style and security). Edit guidance there or here; never inside a tool-specific file.
 - **Claude Code** reads `CLAUDE.md`, not `AGENTS.md`. Our [`CLAUDE.md`](CLAUDE.md) is a one-line `@AGENTS.md` import, so Claude gets the canonical content. Claude-only, path-scoped rules may go in `.claude/rules/` (loaded on demand).
 - **Tools needing their own scoped files** (Cursor `.cursor/rules/`, Copilot `.github/instructions/`, Cline `.clinerules/`) are **not set up yet**. When a contributor needs one, **generate** it from this source (e.g. [`rulesync`](https://github.com/dyoshikawa/rulesync)) rather than hand-maintaining a duplicate.
 - **Nesting:** a subtree may add its own `AGENTS.md`; the nearest one to the edited file wins.
@@ -92,6 +92,7 @@ Tapestry is **coding-agent agnostic**: one source of truth, and every tool resol
 
 - **Before acting:** read this file, then `/llms.txt` (when present), then the nearest subtree `AGENTS.md`.
 - **Editing docs:** edit Markdown in `/docs`. Only touch `/web` HTML for explicit human-docs tasks, following [.agents/html-authoring-guide.md](.agents/html-authoring-guide.md). Never change meaning in `/web` without updating the canonical `/docs` source.
+- **Writing code:** follow [.agents/development.md](.agents/development.md) — the loop (explore → plan → implement → verify → commit), verify-before-done, tests-as-spec, small self-contained changes, and the red lines.
 - **Decisions:** record them. A small, mostly-irreversible choice → an **ADR** in `docs/decisions/`. A substantial or externally-visible design → an **RFD** (§5). If an ADR starts needing a *Motivation* and *Alternatives* section, promote it to an RFD.
 - **Never** delete a superseded ADR/RFD — mark it superseded and back-link.
 
